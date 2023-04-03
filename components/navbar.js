@@ -21,7 +21,7 @@ function Navbar({tab, setTab, setGallery, setNftGallery}) {
                                           }}>
               🖼️
             </div>
-            <WalletMultiButton />
+            <WalletMultiButton className='bg-gray-600' />
         </div>
     </div>
   )
