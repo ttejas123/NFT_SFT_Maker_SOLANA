@@ -50,7 +50,7 @@ export default function Home() {
            <div className="bg-white w-[90%] sm:w-[90%] md:w-[40%] lg:w-[35%] xl:w-[30%]  flex flex-col justify-center items-center rounded-xl p-5">
                 <div className="font-bold text-xl">Connect Your Wallet</div>
                 <div className="text-center mt-2 mb-12 text-[#b3b3b3]">Manage your account, check notifications and many more...</div>
-                <div><WalletMultiButton /></div>
+                <div className='bg-gray-400'><WalletMultiButton className='bg-gray-900' /></div>
            </div>
         </div>
       )}
