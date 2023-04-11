@@ -11,7 +11,7 @@ export const config = {
 const post = async (req, res) => {
   const auth = await authenticateToken(req, res)
   // console.log(auth)
-  if(!auth) return res.status(404).json({uri: "Failed in authentication"})
+  if(!auth) return res.status(404).json({uri: "Failed in yarn"})
   const form = new formidable.IncomingForm();
   form.parse(req, async function (err, fields, files) {
     const {status, uri} = await saveFile(files.file);

@@ -10,6 +10,7 @@ const key = require('./solana/devnet.json');
 // const { TokenStandard } = require('@metaplex-foundation/mpl-token-metadata');
 const secret = new Uint8Array(key) 
 const account = Keypair.fromSecretKey(secret);
+// console.log(account.publicKey.toString())
 const jwt = require("jsonwebtoken");
 const NETWORK_MAIN = 'devnet';
 const SOLANA_HOST = clusterApiUrl(NETWORK_MAIN);
