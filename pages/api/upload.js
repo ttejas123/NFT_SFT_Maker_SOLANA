@@ -31,7 +31,7 @@ const saveFile = async (file) => {
     const cost = parseInt(getUploadCost, 10)
     const fundToSet = cost / LAMPORTS_PER_SOL + 50;
     (await bundlrStorage.bundlr()).fund(parseInt(fundToSet));
-    const uploaddata = await toMetaplexFile(data, `${filePath}`) 
+    const uploaddata = await toMetaplexFile(data1, `${file.filepath}`) 
     let uri = await metaplex.storage().upload(uploaddata)
     console.log("Uploaded File URI:- "+uri);
     // await fs.unlinkSync(`${filePath}`);
