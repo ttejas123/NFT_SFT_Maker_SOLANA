@@ -11,7 +11,7 @@ export const config = {
 const post = async (req, res) => {
   const auth = await authenticateToken(req, res)
   // console.log(auth)
-  if(!auth) return res.status(404).json({uri: "Failed in yarn"})
+  if(!auth) return res.status(404).json({uri: "Failed in authentication"})
   const form = new formidable.IncomingForm();
   form.parse(req, async function (err, fields, files) {
     const {status, uri} = await saveFile(files.file);
@@ -20,7 +20,7 @@ const post = async (req, res) => {
 };
 
 const saveFile = async (file) => {
-  try{
+  // try{
     const data1 = fs.readFileSync(file.filepath);
     fs.writeFileSync(`./public/${file.originalFilename}`, data1);
     var data = fs.readFileSync(`./public/${file.originalFilename}`);
@@ -34,9 +34,9 @@ const saveFile = async (file) => {
     console.log("Uploaded File URI:- "+uri);
     await fs.unlinkSync(`./public/${file.originalFilename}`);
     return {status: 200, uri: uri};
-  } catch (e) {
-    return {status: 404, uri: "Unable to Upload file to Metaplex"};
-  }
+  // } catch (e) {
+  //   return {status: 404, uri: "Unable to Upload file to Metaplex"};
+  // }
 };
 
 export default (req, res) => {
