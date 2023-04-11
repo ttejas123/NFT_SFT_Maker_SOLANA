@@ -23,18 +23,18 @@ const post = async (req, res) => {
 const saveFile = async (file) => {
   // try{
     const data1 = fs.readFileSync(file.filepath);
-    fs.writeFileSync(`./public/${file.originalFilename}`, data1);
-    const filePath = path.join(process.cwd(), 'public', file.originalFilename);
-    var data = fs.readFileSync(`${filePath}`);
+    // fs.writeFileSync(`./public/${file.originalFilename}`, data1);
+    // const filePath = path.join(process.cwd(), 'public', file.originalFilename);
+    // var data = fs.readFileSync(`${filePath}`);
     const bundlrStorage = metaplex.storage().driver();
-    const getUploadCost = await (await metaplex.storage().getUploadPriceForFile(data)).basisPoints.toString(10)
+    const getUploadCost = await (await metaplex.storage().getUploadPriceForFile(data1)).basisPoints.toString(10)
     const cost = parseInt(getUploadCost, 10)
     const fundToSet = cost / LAMPORTS_PER_SOL + 50;
     (await bundlrStorage.bundlr()).fund(parseInt(fundToSet));
     const uploaddata = await toMetaplexFile(data, `${filePath}`) 
     let uri = await metaplex.storage().upload(uploaddata)
     console.log("Uploaded File URI:- "+uri);
-    await fs.unlinkSync(`${filePath}`);
+    // await fs.unlinkSync(`${filePath}`);
     return {status: 200, uri: uri};
   // } catch (e) {
   //   return {status: 404, uri: "Unable to Upload file to Metaplex"};
