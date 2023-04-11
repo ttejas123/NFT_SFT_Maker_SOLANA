@@ -4,7 +4,7 @@ import Userschema from './schema/user'
 // Login
 const handler = async(req, res) => {
     const wallet = req.body.wallet
-
+    console.log(wallet)
     try {
         await connectMongo();
         // console.log("Connected to DB")
@@ -14,12 +14,12 @@ const handler = async(req, res) => {
         // Validate if user exist in our database
         const oldUser = await Userschema.findOne({ pubkey: wallet });
         // console.log(oldUser)
-        if (oldUser) {
+        if (oldUser && req.body.refresh_token) {
         const refresh_token_check_for_old_user = req.body.refresh_token
-        if(refresh_token_check_for_old_user == null) return res.sendStatus(401);
+        if(refresh_token_check_for_old_user == null) return res.status(401).json({});
         let access_token_gen = "";
         jwt.verify(refresh_token_check_for_old_user, REFRESH_TOKEN_SECRET, (err, user) => {
-            if(err) return res.sendStatus(403)
+            if(err) return res.status(403).json({})
             // console.log(user)
             
             access_token_gen = jwt.sign(
@@ -32,11 +32,11 @@ const handler = async(req, res) => {
 
             // return res.status(200).send({"access_token": access_token_gen});
         })
-        return res.json({pubkey: oldUser.pubkey, signature: oldUser.signature, access_token : access_token_gen, refresh_token : refresh_token_check_for_old_user });
+        return res.status(200).json({pubkey: oldUser.pubkey, signature: oldUser.signature, access_token : access_token_gen, refresh_token : refresh_token_check_for_old_user });
         }
 
         const data_to_store = {
-        pubkey: req.body.wallet, // sanitize: convert email to lowercase
+        pubkey: req.body.wallet, 
         signature: req.body.signature
         }
 
